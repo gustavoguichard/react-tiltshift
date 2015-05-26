@@ -48,7 +48,7 @@ const TiltShift = React.createClass({
     blur: rangePropType,
     direction: anglePropType,
     position: rangePropType,
-    sharpness: rangePropType,
+    smoothness: rangePropType,
     src: React.PropTypes.string.isRequired
   },
   getDefaultProps() {
@@ -57,11 +57,11 @@ const TiltShift = React.createClass({
       blur: 1.5,
       direction: 'vertical',
       position: 50,
-      sharpness: 10
+      smoothness: 10
     }
   },
   render() {
-    const { src, position, blur, aperture, sharpness, direction } = this.props
+    const { src, position, blur, aperture, smoothness, direction } = this.props
     let beforeEnd, beforeDirection, beforeFall, afterEnd,
         afterDirection, afterFall, angle, firstStyles,
         secondStyles = styles.blurredLayer
@@ -69,8 +69,8 @@ const TiltShift = React.createClass({
     secondStyles['WebkitFilter'] = `blur(${blur}px) contrast(105%) saturate(105%)`
     beforeEnd = (position - (aperture / 2)) / 100
     afterEnd = ((100 - position) - (aperture / 2)) / 100
-    beforeFall = ((beforeEnd - (sharpness / 100)) * 100).toFixed(2)
-    afterFall = ((afterEnd - (sharpness / 100)) * 100).toFixed(2)
+    beforeFall = ((beforeEnd - (smoothness / 100)) * 100).toFixed(2)
+    afterFall = ((afterEnd - (smoothness / 100)) * 100).toFixed(2)
     beforeEnd *= 100
     afterEnd *= 100
     if (direction === 'vertical') {
