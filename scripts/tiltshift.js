@@ -62,17 +62,17 @@ const TiltShift = React.createClass({
   },
   render() {
     const { src, position, blur, aperture, smoothness, direction } = this.props
-    let beforeEnd, beforeDirection, beforeFall, afterEnd,
-        afterDirection, afterFall, angle, firstStyles,
-        secondStyles = styles.blurredLayer
+    let beforeDirection, afterDirection
+    
+    const secondStyles = styles.blurredLayer
     secondStyles['backgroundImage'] = `url(${src})`
     secondStyles['WebkitFilter'] = `blur(${blur}px) contrast(105%) saturate(105%)`
-    beforeEnd = (position - (aperture / 2)) / 100
-    afterEnd = ((100 - position) - (aperture / 2)) / 100
-    beforeFall = ((beforeEnd - (smoothness / 100)) * 100).toFixed(2)
-    afterFall = ((afterEnd - (smoothness / 100)) * 100).toFixed(2)
-    beforeEnd *= 100
-    afterEnd *= 100
+    
+    const beforeEnd = position - (aperture / 2)
+    const afterEnd = (100 - position) - (aperture / 2)
+    const beforeFall = (beforeEnd - smoothness).toFixed(2)
+    const afterFall = (afterEnd - smoothness).toFixed(2)
+    
     if (direction === 'vertical') {
       beforeDirection = '270deg'
       afterDirection = '90deg'
@@ -80,13 +80,15 @@ const TiltShift = React.createClass({
       beforeDirection = '180deg'
       afterDirection = '0deg'
     } else {
-      angle = direction % 360
+      const angle = direction % 360
       beforeDirection = (angle + 180) + 'deg'
       afterDirection = angle + 'deg'
     }
-    firstStyles = JSON.parse(JSON.stringify(secondStyles))
+
+    const firstStyles = JSON.parse(JSON.stringify(secondStyles))
     firstStyles['WebkitMaskImage'] = `-webkit-linear-gradient(${beforeDirection}, rgba(0,0,0,1) 0, rgba(0,0,0,1) ${beforeFall}%, rgba(0,0,0,0) ${beforeEnd}%)`
     secondStyles['WebkitMaskImage'] = `-webkit-linear-gradient(${afterDirection}, rgba(0,0,0,1) 0, rgba(0,0,0,1) ${afterFall}%, rgba(0,0,0,0) ${afterEnd}%)`
+    
     return (
       <div style={styles.wrap}>
         <img src={src} {...this.props} />
