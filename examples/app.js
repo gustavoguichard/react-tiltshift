@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import TiltShift from '../src/tiltshift'
 
 const App = React.createClass({
@@ -16,12 +17,12 @@ const App = React.createClass({
     return this.state.direction === "angle" ? this.state.directionAngle : this.state.direction
   },
   handleChange() {
-    const aperture = React.findDOMNode(this.refs.apertureField).value
-    const blur = React.findDOMNode(this.refs.blurField).value
-    const directionAngle = React.findDOMNode(this.refs.directionField) ?
-                            React.findDOMNode(this.refs.directionField).value : 0
-    const position = React.findDOMNode(this.refs.positionField).value
-    const smoothness = React.findDOMNode(this.refs.smoothnessField).value
+    const aperture = this.refs.apertureField.value
+    const blur = this.refs.blurField.value
+    const directionAngle = this.refs.directionField ?
+                            this.refs.directionField.value : 0
+    const position = this.refs.positionField.value
+    const smoothness = this.refs.smoothnessField.value
     this.setState({ aperture, blur, directionAngle, position, smoothness })
   },
   handleDirectionSourceChange(event) {
@@ -72,4 +73,4 @@ const App = React.createClass({
   }
 })
 
-React.render(<App/>, document.getElementById('container'))
+ReactDOM.render(<App/>, document.getElementById('container'))
