@@ -23,18 +23,11 @@ export default class TiltShift extends Component {
   }
 
   render() {
-    const { src, position, blur, smoothness, direction } = this.props
-    const ap = this.props.aperture / 2
-    const botGradient = getGradient({
-      angle: bottomAngle(direction),
-      end: 100 - position - ap,
-      fall: (100 - position - ap - smoothness).toFixed(2),
-    })
-    const topGradient = getGradient({
-      angle: topAngle(direction),
-      fall: (position - ap - smoothness).toFixed(2),
-      end: position - ap,
-    })
+    const { src, aperture, position, blur, smoothness, direction } = this.props
+    const bAngle = bottomAngle(direction)
+    const tAngle = topAngle(direction)
+    const botGradient = getGradient(bAngle, 100 - position, aperture, smoothness)
+    const topGradient = getGradient(tAngle, position, aperture, smoothness)
 
     const bottomStyl = {
       ...Styles.blurredLayer,
@@ -43,6 +36,7 @@ export default class TiltShift extends Component {
       WebkitMaskImage: botGradient,
     }
     const topSty = { ...bottomStyl, WebkitMaskImage: topGradient }
+
     return (
       <div style={Styles.wrap}>
         <img src={src} {...this.props} />

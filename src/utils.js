@@ -1,8 +1,11 @@
-const mask = alpha => `rgba(0,0,0,${alpha})`
-export const getGradient = (obj) => (
-  `-webkit-linear-gradient(${obj.angle}, ${mask(1)} 0, ` +
-  `${mask(1)} ${obj.fall}%, ${mask(0)} ${obj.end}%)`
-)
+export const getGradient = (angle, pos, apt, smtns) => {
+  const mask = alpha => `rgba(0,0,0,${alpha})`
+  const end = pos - (apt / 2)
+  return (
+    `-webkit-linear-gradient(${angle}, ${mask(1)} 0, ` +
+    `${mask(1)} ${(end - smtns).toFixed(2)}%, ${mask(0)} ${end}%)`
+  )
+}
 
 const toAngle = val => `${val}deg`
 const getAngle = (dir, values) => (
