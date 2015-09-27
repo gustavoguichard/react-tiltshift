@@ -256,10 +256,10 @@
 	            blur,
 	            ' direction=',
 	            directionValue,
-	            ' position=',
-	            position,
 	            _react2['default'].createElement('br', null),
-	            '           smoothness=',
+	            '           position=',
+	            position,
+	            ' smoothness=',
 	            smoothness,
 	            ' width="600" />'
 	          )
@@ -10747,22 +10747,16 @@
 	  TiltShift.prototype.render = function render() {
 	    var _props = this.props;
 	    var src = _props.src;
+	    var aperture = _props.aperture;
 	    var position = _props.position;
 	    var blur = _props.blur;
 	    var smoothness = _props.smoothness;
 	    var direction = _props.direction;
 
-	    var ap = this.props.aperture / 2;
-	    var botGradient = _utils.getGradient({
-	      angle: _utils.bottomAngle(direction),
-	      end: 100 - position - ap,
-	      fall: (100 - position - ap - smoothness).toFixed(2)
-	    });
-	    var topGradient = _utils.getGradient({
-	      angle: _utils.topAngle(direction),
-	      fall: (position - ap - smoothness).toFixed(2),
-	      end: position - ap
-	    });
+	    var bAngle = _utils.bottomAngle(direction);
+	    var tAngle = _utils.topAngle(direction);
+	    var botGradient = _utils.getGradient(bAngle, 100 - position, aperture, smoothness);
+	    var topGradient = _utils.getGradient(tAngle, position, aperture, smoothness);
 
 	    var bottomStyl = _extends({}, _styles2['default'].blurredLayer, {
 	      backgroundImage: 'url(' + src + ')',
@@ -10770,6 +10764,7 @@
 	      WebkitMaskImage: botGradient
 	    });
 	    var topSty = _extends({}, bottomStyl, { WebkitMaskImage: topGradient });
+
 	    return _react2['default'].createElement(
 	      'div',
 	      { style: _styles2['default'].wrap },
@@ -10815,11 +10810,12 @@
 	"use strict";
 
 	exports.__esModule = true;
-	var mask = function mask(alpha) {
-	  return "rgba(0,0,0," + alpha + ")";
-	};
-	var getGradient = function getGradient(obj) {
-	  return "-webkit-linear-gradient(" + obj.angle + ", " + mask(1) + " 0, " + (mask(1) + " " + obj.fall + "%, " + mask(0) + " " + obj.end + "%)");
+	var getGradient = function getGradient(angle, pos, apt, smtns) {
+	  var mask = function mask(alpha) {
+	    return "rgba(0,0,0," + alpha + ")";
+	  };
+	  var end = pos - apt / 2;
+	  return "-webkit-linear-gradient(" + angle + ", " + mask(1) + " 0, " + (mask(1) + " " + (end - smtns).toFixed(2) + "%, " + mask(0) + " " + end + "%)");
 	};
 
 	exports.getGradient = getGradient;
