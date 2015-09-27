@@ -6,7 +6,7 @@ React component to create images tiltshift.
 ### Usage
 
 ```
-import TiltShift from './tiltshift'
+import TiltShift from 'react-tiltshift'
 
 <TiltShift src="../images/sf.jpg" position="38" width="600" />
 ```
@@ -28,14 +28,6 @@ You just need to pass the `src` prop. You can pass any attribute you'd normally 
 *After:*
 
 ![screen-shot-2015-05-26-at-8 39 12-am](https://cloud.githubusercontent.com/assets/566971/7811815/9733d4de-0383-11e5-977b-4862412b3d67.jpg)
-
-### Dependencies
-
-* React
-* Webpack
-* [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
-* [babel-loader](https://github.com/babel/babel-loader)
-* [react-hot-loader](https://github.com/gaearon/react-hot-loader)
 
 ### Inspiration & Base
 
