@@ -44,43 +44,69 @@ class App extends Component {
     const directionValue = this.validDirection
     return (
       <div>
-        <pre>
-          &lt;TiltShift src="sf.jpg" aperture={aperture} blur={blur} direction={directionValue} position={position} smoothness={smoothness} width="600" /&gt;
-        </pre>
-        <TiltShift src="sf.jpg" aperture={aperture} blur={blur} direction={directionValue} position={position} smoothness={smoothness} width="600" />
-        <p>
-          <label htmlFor="blur">Blur radius:</label>{" "}
-          <input ref="blurField" id="blur" type="number" min="0" max="10" step=".5" defaultValue={blur} onChange={this.handleChange} />
-        </p>
-        <p>
-          <label htmlFor="aperture">Aperture:</label>{" "}
-          <input ref="apertureField" id="aperture" type="number" min="0" max="100" defaultValue={aperture} onChange={this.handleChange} />
-        </p>
-        <p>
-          <label htmlFor="direction">Direction:</label>{" "}
-          <select defaultValue={direction} onChange={this.handleDirectionSource}>
-            <option value="vertical">Vertical</option>
-            <option value="horizontal">Horizontal</option>
-            <option value="angle">Angle</option>
-          </select>
-          {direction == "angle" && (
-            <span>
-              {" "}
-              <input ref="directionField" id="direction" type="number" min="0" max="360" defaultValue={directionAngle} onChange={this.handleChange} />º
-            </span>
-          )}
-        </p>
-        <p>
-          <label htmlFor="position">Position:</label>{" "}
-          <input ref="positionField" id="position" type="number" min="0" max="100" defaultValue={position} onChange={this.handleChange} />
-        </p>
-        <p>
-          <label htmlFor="smoothness">smoothness:</label>{" "}
-          <input ref="smoothnessField" id="smoothness" type="number" min="0" max="100" defaultValue={smoothness} onChange={this.handleChange} />
-        </p>
+        <div className="thumbnail text-center">
+          <TiltShift src="sf.jpg" aperture={aperture} blur={blur} direction={directionValue} position={position} smoothness={smoothness} width="600" />
+        </div>
+        <div className="panel panel-default">
+          <div className="panel-body">
+            <div className="row">
+              <div className="col-xs-4">
+                <div className="form-group">
+                  <label className="control-label" htmlFor="blur">Blur radius:</label>
+                  <input className="form-control" ref="blurField" id="blur" type="number" min="0" max="10" step=".5" defaultValue={blur} onChange={this.handleChange} />
+                </div>
+              </div>
+              <div className="col-xs-4">
+                <div className="form-group">
+                  <label className="control-label" htmlFor="aperture">Aperture:</label>
+                  <input className="form-control" ref="apertureField" id="aperture" type="number" min="0" max="100" defaultValue={aperture} onChange={this.handleChange} />
+                </div>
+              </div>
+              <div className="col-xs-4">
+                <div className="form-group">
+                  <label className="control-label" htmlFor="position">Position:</label>
+                  <input className="form-control" ref="positionField" id="position" type="number" min="0" max="100" defaultValue={position} onChange={this.handleChange} />
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-xs-4">
+                <div className="form-group">
+                  <label className="control-label" htmlFor="smoothness">smoothness:</label>
+                  <input className="form-control" ref="smoothnessField" id="smoothness" type="number" min="0" max="100" defaultValue={smoothness} onChange={this.handleChange} />
+                </div>
+              </div>
+              <div className="col-xs-4">
+                <div className="form-group">
+                  <label className="control-label" htmlFor="direction">direction:</label>
+                  <select className="form-control" defaultValue={direction} onChange={this.handleDirectionSource}>
+                    <option value="vertical">Vertical</option>
+                    <option value="horizontal">Horizontal</option>
+                    <option value="angle">Angle</option>
+                  </select>
+                </div>
+              </div>
+              {direction == "angle" && (
+                <div className="col-xs-4">
+                  <div className="form-group">
+                    <label className="control-label" htmlFor="direction">angle:</label>
+                    <div className="input-group">
+                      <input className="form-control" ref="directionField" id="direction" type="number" min="0" max="360" defaultValue={directionAngle} onChange={this.handleChange} />
+                      <span className="input-group-addon">º</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+            <pre>
+              &lt;TiltShift src="sf.jpg" aperture={aperture} blur={blur} direction={directionValue} position={position}
+              <br/>           smoothness={smoothness} width="600" /&gt;
+            </pre>
+          </div>
+        </div>
       </div>
     )
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('container'))
+ReactDOM.render(<App />, document.getElementById('react-main'))
