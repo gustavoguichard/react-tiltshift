@@ -1,9 +1,21 @@
 {
   "name": "react-tiltshift",
   "version": "1.0.0",
-  "description": "React component to create images tiltshift",
+  "description": "React component to create tiltshift images",
+  "main": "./src/index.js",
   "scripts": {
-    "start": "node server.js"
+    "build:lib": "babel src --out-dir lib",
+    "build:umd": "webpack src/index.js dist/tiltshift.js --config webpack.config.release.js",
+    "build:umd:min": "webpack src/index.js dist/tiltshift.min.js --config webpack.config.production.js",
+    "build": "npm run build:lib && npm run build:umd && npm run build:umd:min",
+    "clean": "rimraf lib dist coverage",
+    "lint": "eslint src test",
+    "prepublish": "npm run clean && npm run build",
+    "release": "npm run prepublish && npm publish",
+    "test": "mocha --compilers js:babel/register --recursive",
+    "test:lint": "npm run link && npm test",
+    "test:watch": "npm test -- --watch",
+    "test:cov": "babel-node ./node_modules/isparta/bin/isparta cover ./node_modules/mocha/bin/_mocha -- --recursive"
   },
   "repository": {
     "type": "git",
@@ -13,20 +25,38 @@
     "react",
     "reactjs",
     "tiltshift",
-    "webpack"
+    "webpack",
+    "image",
+    "effects"
   ],
   "author": "Gustavo Guichard <gustavoguichard@gmail.com> (http://github.com/gustavoguichard)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/gustavoguichard/react-tiltshift/issues"
   },
-  "homepage": "https://github.com/gaearon/react-tiltshift",
+  "homepage": "https://gustavoguichard.github.io/react-tiltshift",
+  "peerDependencies": {
+    "react": "0.13.x"
+  },
   "devDependencies": {
-    "babel-core": "^5.4.7",
-    "babel-loader": "^5.1.3",
-    "react": "^0.13.3",
-    "react-hot-loader": "^1.1.1",
-    "webpack": "^1.5.1",
-    "webpack-dev-server": "1.6.4"
+    "babel": "^5.8.23",
+    "babel-core": "^5.8.25",
+    "babel-eslint": "^4.1.3",
+    "babel-loader": "^5.3.2",
+    "eslint": "^1.5.1",
+    "eslint-config-airbnb": "0.0.9",
+    "eslint-plugin-react": "^3.4.2",
+    "expect": "^1.10.0",
+    "isparta": "^3.0.4",
+    "istanbul": "^0.3.21",
+    "jsdom": "^6.5.1",
+    "mocha": "^2.3.3",
+    "mocha-jsdom": "^1.0.0",
+    "react": "0.13.x",
+    "rimraf": "^2.4.3",
+    "webpack": "^1.12.2"
+  },
+  "dependencies": {
+    "webpack-dev-server": "^1.12.0"
   }
 }

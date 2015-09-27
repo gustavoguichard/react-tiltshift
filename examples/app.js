@@ -1,5 +1,5 @@
 import React from 'react'
-import TiltShift from './tiltshift'
+import TiltShift from '../src/tiltshift'
 
 const App = React.createClass({
   getInitialState() {
@@ -34,9 +34,9 @@ const App = React.createClass({
     return (
       <div>
         <pre>
-          &lt;TiltShift src="../images/sf.jpg" aperture={aperture} blur={blur} direction={directionValue} position={position} smoothness={smoothness} width="600" /&gt;
+          &lt;TiltShift src="sf.jpg" aperture={aperture} blur={blur} direction={directionValue} position={position} smoothness={smoothness} width="600" /&gt;
         </pre>
-        <TiltShift src="../images/sf.jpg" aperture={aperture} blur={blur} direction={directionValue} position={position} smoothness={smoothness} width="600" />
+        <TiltShift src="sf.jpg" aperture={aperture} blur={blur} direction={directionValue} position={position} smoothness={smoothness} width="600" />
         <p>
           <label htmlFor="blur">Blur radius:</label>{" "}
           <input ref="blurField" id="blur" type="number" min="0" max="10" step=".5" defaultValue={blur} onChange={this.handleChange} />
@@ -72,4 +72,4 @@ const App = React.createClass({
   }
 })
 
-module.exports = App
+React.render(<App/>, document.getElementById('container'))
