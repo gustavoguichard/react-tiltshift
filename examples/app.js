@@ -10,7 +10,7 @@ class App extends Component {
     this.state = {
       aperture: 10,
       blur: 2.5,
-      direction: 'vertical',
+      direction: 'horizontal',
       position: 50,
       smoothness: 10,
       directionAngle: 0,
@@ -80,8 +80,8 @@ class App extends Component {
                 <div className="form-group">
                   <label className="control-label" htmlFor="direction">direction:</label>
                   <select className="form-control" defaultValue={direction} onChange={this.handleDirectionSource}>
-                    <option value="vertical">Vertical</option>
                     <option value="horizontal">Horizontal</option>
+                    <option value="vertical">Vertical</option>
                     <option value="angle">Angle</option>
                   </select>
                 </div>

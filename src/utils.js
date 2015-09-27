@@ -5,9 +5,9 @@ export const getGradient = (obj) => (
 )
 
 const toAngle = val => `${val}deg`
-const getAngle = (dir, values) => {
+const getAngle = (dir, values) => (
   isNaN(dir) ? toAngle(values[dir]) : toAngle((dir % 360) + values.axis)
-}
+)
 
 export const bottomAngle = dir => getAngle(dir, {
   horizontal: 90, vertical: 0, axis: 0

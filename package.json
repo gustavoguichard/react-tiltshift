@@ -1,7 +1,7 @@
 {
   "name": "react-tiltshift",
   "version": "1.0.0",
-  "description": "React component to create tiltshift images",
+  "description": "A React component for adding tiltshift effect in images",
   "main": "./src/index.js",
   "scripts": {
     "build:lib": "babel src --out-dir lib",
