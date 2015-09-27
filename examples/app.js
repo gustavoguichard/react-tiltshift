@@ -99,8 +99,8 @@ class App extends Component {
               )}
             </div>
             <pre>
-              &lt;TiltShift src="sf.jpg" aperture={aperture} blur={blur} direction={directionValue} position={position}
-              <br/>           smoothness={smoothness} width="600" /&gt;
+              &lt;TiltShift src="sf.jpg" aperture={aperture} blur={blur} direction={directionValue}
+              <br/>           position={position} smoothness={smoothness} width="600" /&gt;
             </pre>
           </div>
         </div>
