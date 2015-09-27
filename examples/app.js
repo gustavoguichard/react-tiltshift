@@ -1,37 +1,47 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import TiltShift from '../src/tiltshift'
 
-const App = React.createClass({
-  getInitialState() {
-    return {
+const Maybe = (obj, value) => obj !== undefined ? obj[value] : false
+
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
       aperture: 10,
       blur: 2.5,
       direction: 'vertical',
       position: 50,
       smoothness: 10,
-      directionAngle: 0
+      directionAngle: 0,
     }
-  },
-  getDirection() {
-    return this.state.direction === "angle" ? this.state.directionAngle : this.state.direction
-  },
+    this.handleChange = this.handleChange.bind(this)
+    this.handleDirectionSource = this.handleDirectionSource.bind(this)
+  }
+
+  get validDirection() {
+    const { direction, directionAngle } = this.state
+    return direction === "angle" ? directionAngle : direction
+  }
+
   handleChange() {
-    const aperture = this.refs.apertureField.value
-    const blur = this.refs.blurField.value
-    const directionAngle = this.refs.directionField ?
-                            this.refs.directionField.value : 0
-    const position = this.refs.positionField.value
-    const smoothness = this.refs.smoothnessField.value
-    this.setState({ aperture, blur, directionAngle, position, smoothness })
-  },
-  handleDirectionSourceChange(event) {
+    this.setState({
+      aperture: this.refs.apertureField.value,
+      blur: this.refs.blurField.value,
+      directionAngle: Maybe(this.refs.directionField, 'value') || 0,
+      position: this.refs.positionField.value,
+      smoothness: this.refs.smoothnessField.value,
+    })
+  }
+
+  handleDirectionSource(event) {
     const direction = event.currentTarget.value
     this.setState({ direction })
-  },
+  }
+
   render() {
-    const { blur, aperture, direction, directionAngle, position, smoothness } = this.state,
-          directionValue = this.getDirection()
+    const { blur, aperture, direction, directionAngle, position, smoothness } = this.state
+    const directionValue = this.validDirection
     return (
       <div>
         <pre>
@@ -48,7 +58,7 @@ const App = React.createClass({
         </p>
         <p>
           <label htmlFor="direction">Direction:</label>{" "}
-          <select defaultValue={direction} onChange={this.handleDirectionSourceChange}>
+          <select defaultValue={direction} onChange={this.handleDirectionSource}>
             <option value="vertical">Vertical</option>
             <option value="horizontal">Horizontal</option>
             <option value="angle">Angle</option>
@@ -71,6 +81,6 @@ const App = React.createClass({
       </div>
     )
   }
-})
+}
 
-ReactDOM.render(<App/>, document.getElementById('container'))
+ReactDOM.render(<App />, document.getElementById('container'))
