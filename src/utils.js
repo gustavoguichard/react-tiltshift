@@ -1,3 +1,6 @@
+export const getFilter = (blur) =>
+  `blur(${blur}px) contrast(105%) saturate(105%)`
+
 export const getGradient = (angle, pos, apt, smtns) => {
   const mask = alpha => `rgba(0,0,0,${alpha})`
   const end = pos - (apt / 2)
@@ -7,9 +10,9 @@ export const getGradient = (angle, pos, apt, smtns) => {
   )
 }
 
-const toAngle = val => `${val}deg`
+const toDeg = val => `${val}deg`
 const getAngle = (dir, values) => (
-  isNaN(dir) ? toAngle(values[dir]) : toAngle((dir % 360) + values.axis)
+  isNaN(dir) ? toDeg(values[dir]) : toDeg((dir % 360) + values.axis)
 )
 
 export const bottomAngle = dir => getAngle(dir, {

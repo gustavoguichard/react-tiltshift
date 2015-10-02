@@ -1,10 +1,10 @@
 const Styles = {
-  wrap: {
+  wrapper: {
     display: 'inline-block',
     overflow: 'hidden',
     position: 'relative'
   },
-  blurredLayer: {
+  tiltMask: {
     backgroundRepeat: 'no-repeat',
     backgroundPosition: '0 0',
     backgroundSize: '100% 100%',

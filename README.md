@@ -11,13 +11,16 @@ import TiltShift from 'react-tiltshift'
 <TiltShift src="../images/sf.jpg" position="38" width="600" />
 ```
 
-You just need to pass the `src` prop. You can pass any attribute you'd normally pass to a `img` html tag. You can pass the following props to configure the effect:
+You just need to pass the `src` prop. You can pass any attribute you'd normally pass to a `img` html tag. You can also pass the following specific props to configure the effect:
 
 * aperture (0-100): the amount of area that is in focus. 10 would mean one tenth of the image is sharp.
 * blur (0-10): the blur radius in pixels. Something between 1 or 2 usually gives the best results.
-* direction (“horizontal”, “vertical”, or 0-360): the direction of the effect with zero at right.
-* position (0-100): defines the point of focus. 50 would be the image middle.
+* direction (“horizontal”, “vertical”, or 0-360): the angle of the effect.
+* position (0-100): defines the point of focus. 50 would be the image center.
 * smoothness (0-100): the amount of area between complete focus and complete blur. The higher the value, the “smoother" the blur.
+
+##### Support
+Only webkit browsers as this effect requires `-webkit-mask-image`, a non-standard css property that is not likely to arrive in non-webkit browsers anytime soon.
 
 ##### Demo
 

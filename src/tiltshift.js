@@ -1,6 +1,8 @@
 import React, { PropTypes, Component } from 'react'
 import { anglePropType, rangePropType } from './propTypes'
-import { bottomAngle, topAngle, getGradient } from './utils'
+import {
+  bottomAngle, topAngle, getGradient, getFilter
+} from './utils'
 import Styles from './styles'
 
 export default class TiltShift extends Component {
@@ -23,25 +25,25 @@ export default class TiltShift extends Component {
   }
 
   render() {
-    const { src, aperture, position, blur, smoothness, direction } = this.props
+    const { aperture, position, smoothness, direction } = this.props
     const bAngle = bottomAngle(direction)
     const tAngle = topAngle(direction)
-    const botGradient = getGradient(bAngle, 100 - position, aperture, smoothness)
-    const topGradient = getGradient(tAngle, position, aperture, smoothness)
+    const bGradient = getGradient(bAngle, position -100, aperture, smoothness)
+    const tGradient = getGradient(tAngle, position, aperture, smoothness)
 
-    const bottomStyl = {
-      ...Styles.blurredLayer,
-      backgroundImage: `url(${src})`,
-      WebkitFilter: `blur(${blur}px) contrast(105%) saturate(105%)`,
-      WebkitMaskImage: botGradient,
+    const bStyles = {
+      ...Styles.tiltMask,
+      backgroundImage: `url(${this.props.src})`,
+      WebkitFilter: getFilter(this.props.blur),
+      WebkitMaskImage: bGradient,
     }
-    const topSty = { ...bottomStyl, WebkitMaskImage: topGradient }
+    const tStyles = { ...bStyles, WebkitMaskImage: tGradient }
 
     return (
-      <div style={Styles.wrap}>
-        <img src={src} {...this.props} />
-        <div style={topSty} />
-        <div style={bottomStyl} />
+      <div style={Styles.wrapper}>
+        <img {...this.props} />
+        <div style={tStyles} />
+        <div style={bStyles} />
       </div>
     )
   }
